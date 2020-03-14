@@ -24,6 +24,15 @@ public class LivingEntity : MonoBehaviour,IDamagable {
         }
     }
 
+    public virtual void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0 && !dead)
+        {
+            Die();
+        }
+    }
+
     public void Die()
     {
         dead = true;
