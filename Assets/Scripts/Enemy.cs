@@ -32,6 +32,11 @@ public class Enemy : LivingEntity {
 
         StartCoroutine(updatePath());
 	}
+
+    public void SetSpeed(float speed)
+    {
+        pathfinder.speed = speed;
+    }
 	
 	// Update is called once per frame
 	void Update () {

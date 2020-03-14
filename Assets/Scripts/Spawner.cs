@@ -21,6 +21,7 @@ public class Spawner : MonoBehaviour {
     {
         public int enemyCount;
         public float timeBetweenSpawns;
+        public float moveSpeed;
         
     }
 
@@ -60,6 +61,7 @@ public class Spawner : MonoBehaviour {
 
             Enemy spawned = Instantiate(enemy, RandomNavmeshLocation(300f), Quaternion.identity) as Enemy;
             spawned.OnDeath += onEnemyDeath;
+            spawned.SetSpeed(currentWave.moveSpeed);
         }
     }
 
