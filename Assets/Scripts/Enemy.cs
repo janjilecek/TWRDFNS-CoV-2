@@ -8,6 +8,7 @@ public class Enemy : LivingEntity {
 
     NavMeshAgent pathfinder;
     Transform target;
+    public GameObject deathEffect;
 	// Use this for initialization
 	public override void Start () {
         base.Start();
@@ -32,5 +33,11 @@ public class Enemy : LivingEntity {
             if (!dead) { pathfinder.SetDestination(targetPosition); }
             yield return new WaitForSeconds(refreshRate);
         }
+    }
+
+    public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
+    {
+        Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, -hitDirection));
+        base.TakeHit(damage, hitPoint, hitDirection);
     }
 }
