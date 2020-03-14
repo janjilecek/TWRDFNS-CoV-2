@@ -21,4 +21,11 @@ public class PlayerController : MonoBehaviour {
     {
         myRigidBody.MovePosition(myRigidBody.position + velocity * Time.fixedDeltaTime);
     }
+
+
+    public void LookAt(Vector3 lookPoint)
+    {
+        Vector3 hcp = new Vector3(lookPoint.x, transform.position.y, lookPoint.z);
+        transform.LookAt(hcp);
+    }
 }
