@@ -9,6 +9,7 @@ public class Enemy : LivingEntity {
     float attackDistanceThresh = 1.0f;
     float timebttattacks = 1;
     public AudioClip hitAudio;
+    public GameObject[] subenemies;
     float nextAttackTime;
     public enum State
     {
@@ -31,9 +32,37 @@ public class Enemy : LivingEntity {
         target = GameObject.FindGameObjectWithTag("MainPlayer").transform;
         Random.seed = System.Environment.TickCount;
         targetEntity = target.GetComponent<LivingEntity>();
-        hasNothingAmmoHp = Random.Range(0, 3); // random for hp ammo drops
+        hasNothingAmmoHp = Random.Range(0, 5); // random for hp ammo drops
         print(hasNothingAmmoHp);
+        
         // alternative PlaneTickets
+
+
+        /*
+        if (hasNothingAmmoHp == 0)
+        {
+            GameObject.Find
+        } else if (hasNothingAmmoHp == 1)
+        {
+            GameObject.Find("grandma").SetActive(true);
+        }
+        else if (hasNothingAmmoHp == 2)
+        {
+            GameObject.Find("tourist").SetActive(true);
+        }
+        else if (hasNothingAmmoHp == 3)
+        {
+            GameObject.Find("farmer").SetActive(true);
+        }
+        else if (hasNothingAmmoHp == 4)
+        {
+            GameObject.Find("cheerleader").SetActive(true);
+        }
+        */
+
+        subenemies[hasNothingAmmoHp].SetActive(true);
+
+
 
         StartCoroutine(updatePath());
 	}
