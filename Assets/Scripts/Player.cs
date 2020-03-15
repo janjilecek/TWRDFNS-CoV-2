@@ -18,7 +18,24 @@ public class Player : LivingEntity {
     public AudioClip hpPickup;
     public AudioClip dieSound;
 
+    public AudioClip takeHitSound;
+
     public Animator animator;
+
+
+    public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
+    {
+        base.TakeHit(damage, hitPoint, hitDirection);
+
+        AudioManager.instance.PlaySound(takeHitSound, transform.position);
+
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        AudioManager.instance.PlaySound(takeHitSound, transform.position);
+    }
 
     // Use this for initialization
     public override void Start () {

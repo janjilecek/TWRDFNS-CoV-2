@@ -9,6 +9,10 @@ public class Spawner : MonoBehaviour {
     public GameObject endGame;
 
     public float range = 300.0f;
+
+
+    public AudioClip winSOund;
+
     int enemiesRemainingToSpawn;
     float nextSpawnTime;
     int enemiesRemAlive;
@@ -59,7 +63,8 @@ public class Spawner : MonoBehaviour {
         {
             
                 endGame.SetActive(true);
-            
+                AudioManager.instance.PlaySound(winSOund, transform.position);
+
         }
         
         if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
