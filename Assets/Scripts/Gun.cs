@@ -28,6 +28,8 @@ public class Gun : MonoBehaviour {
 
     public Canvas uiCanvas;
 
+    public Animator animator;
+
     public void Start()
     {
         bulletsInMagCurrent = 30;
@@ -35,12 +37,15 @@ public class Gun : MonoBehaviour {
         magazines = 2;
         myCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         print(myCam);
-
+        animator = GameObject.FindGameObjectWithTag("MainPlayer").GetComponentInChildren<Animator>();
     }
 
 
     public void Shoot()
     {
+        
+
+
         if (Time.time > nextShotTime && !isReloading && hasAmmo)
         {
             nextShotTime = Time.time + msBetweenShots / 1000;
@@ -52,6 +57,8 @@ public class Gun : MonoBehaviour {
             GameObject.FindGameObjectWithTag("MainPlayer").transform.localPosition -= Vector3.forward *.1f; // kickback player
             AudioManager.instance.PlaySound(shootAudio, transform.position);
             //cameraShake.Shake(0.15f, 0.4f));
+
+            animator.SetInteger("WeaponType_int", 6);
 
             //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().ShakeCamera(10f, 10f);
             //myCam.GetComponent<CameraShake>().ShakeCamera(0.1f, 0.01f);

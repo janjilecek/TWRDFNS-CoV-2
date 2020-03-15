@@ -5,16 +5,19 @@ using UnityEngine;
 [RequireComponent (typeof (Rigidbody))]
 public class PlayerController : MonoBehaviour {
 
+
+    Animator animator;
     Vector3 velocity;
     Rigidbody myRigidBody;
 	void Start () {
         myRigidBody = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
 	}
 	
     public void Move(Vector3 _velocity)
     {
         velocity = _velocity;
-
+        
     }
 
     public void FixedUpdate()

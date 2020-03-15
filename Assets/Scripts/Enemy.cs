@@ -30,7 +30,7 @@ public class Enemy : LivingEntity {
         target = GameObject.FindGameObjectWithTag("MainPlayer").transform;
         Random.seed = System.Environment.TickCount;
         targetEntity = target.GetComponent<LivingEntity>();
-        hasNothingAmmoHp = Random.Range(0, 10); // random for hp ammo drops
+        hasNothingAmmoHp = Random.Range(0, 3); // random for hp ammo drops
         print(hasNothingAmmoHp);
         // alternative PlaneTickets
 
@@ -125,9 +125,17 @@ public class Enemy : LivingEntity {
             Instantiate(hpobj, transformIT.position, Quaternion.identity);
         }
 
+        //GameObject g = GameObject.FindGameObjectWithTag("MainPlayer");
+        this.GetComponentInChildren<Animator>().SetInteger("DeathType_int", 2);
+        this.GetComponentInChildren<Animator>().SetBool("Death_b", true);
         
 
 
         base.Die();
+
+
+
+
+        //GameObject.Destroy(gameObject);
     }
 }

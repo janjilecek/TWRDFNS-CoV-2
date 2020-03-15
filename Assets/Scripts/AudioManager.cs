@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour
 {
 
     float masterVolumePercent = .2f;
-    float sfxVolumePercent = 1.5;
+    float sfxVolumePercent = 1.5f;
     float musicVolumePercent = 1f;
 
     AudioSource[] musicSources;
