@@ -108,7 +108,10 @@ public class Player : LivingEntity {
             {
                 Destroy(collision.gameObject);
                 AudioManager.instance.PlaySound(hpPickup, transform.position);
-                health = 100;
+                if (health < 81)
+                {
+                    health += 20; 
+                }
             }
             
         }

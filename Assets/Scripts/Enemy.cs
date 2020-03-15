@@ -22,6 +22,7 @@ public class Enemy : LivingEntity {
     Transform target;
     LivingEntity targetEntity;
     public GameObject deathEffect;
+    
 	// Use this for initialization
 	public override void Start () {
         base.Start();

@@ -13,6 +13,8 @@ public class LivingEntity : MonoBehaviour,IDamagable {
     public GameObject ammoobj;
     public GameObject hpobj;
 
+    public GameObject boomDeath;
+
     public virtual void Start()
     {
         health = startingHealth;
@@ -44,6 +46,8 @@ public class LivingEntity : MonoBehaviour,IDamagable {
         {
             OnDeath();
         }
+
+        Instantiate(boomDeath, transform.position, Quaternion.identity);
         GameObject.Destroy(gameObject);
     }
 
