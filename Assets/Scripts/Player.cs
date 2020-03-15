@@ -64,17 +64,21 @@ public class Player : LivingEntity {
     {
         print("collision");
 
-        if (collision.gameObject.tag == "ammo")
+        if (collision.gameObject.tag == "ammo") // pick up ammo boost
         {
             print("ammo");
             Destroy(collision.gameObject);
             gunController.equippedGun.magazines += 3;
         }
 
-        if (collision.gameObject.tag == "hp")
+        if (collision.gameObject.tag == "hp") // pick up hp boost
         {
-            Destroy(collision.gameObject);
-            health = 100;
+            if (health < 100)
+            {
+                Destroy(collision.gameObject);
+                health = 100;
+            }
+            
         }
     }
 }

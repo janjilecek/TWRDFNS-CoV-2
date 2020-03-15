@@ -28,7 +28,7 @@ public class Enemy : LivingEntity {
         pathfinder = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("MainPlayer").transform;
         targetEntity = target.GetComponent<LivingEntity>();
-        hasNothingAmmoHp = Random.Range(0, 10);
+        hasNothingAmmoHp = Random.Range(0, 20); // random for hp ammo drops
         // alternative PlaneTickets
 
         StartCoroutine(updatePath());
@@ -104,5 +104,23 @@ public class Enemy : LivingEntity {
     {
         Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, -hitDirection));
         base.TakeHit(damage, hitPoint, hitDirection);
+    }
+
+    public override void Die()
+    {
+        Transform transformIT = GetComponent<Transform>();
+
+
+        if (hasNothingAmmoHp == 1)
+        {
+            Instantiate(ammoobj, transformIT.position, Quaternion.identity);
+        } else if (hasNothingAmmoHp == 2) {
+            Instantiate(hpobj, transformIT.position, Quaternion.identity);
+        }
+
+        
+
+
+        base.Die();
     }
 }

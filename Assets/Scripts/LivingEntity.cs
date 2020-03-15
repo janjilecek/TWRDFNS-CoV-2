@@ -10,6 +10,9 @@ public class LivingEntity : MonoBehaviour,IDamagable {
     public int hasNothingAmmoHp;
     public event System.Action OnDeath;
 
+    public GameObject ammoobj;
+    public GameObject hpobj;
+
     public virtual void Start()
     {
         health = startingHealth;
@@ -34,7 +37,7 @@ public class LivingEntity : MonoBehaviour,IDamagable {
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         dead = true;
         if (OnDeath != null)
