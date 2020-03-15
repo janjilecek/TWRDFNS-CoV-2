@@ -21,6 +21,8 @@ public class Gun : MonoBehaviour {
     bool isReloading = false;
     bool hasAmmo = true;
 
+    public AudioClip shootAudio;
+    public AudioClip reloadAudio;
 
     public Canvas uiCanvas;
 
@@ -45,8 +47,8 @@ public class Gun : MonoBehaviour {
             Instantiate(shell, shellEjection.position, shellEjection.rotation); // create shell to eject
             muzzleflash.Activate();  // muzzle flash flash
             GameObject.FindGameObjectWithTag("MainPlayer").transform.localPosition -= Vector3.forward *.1f; // kickback player
+            AudioManager.instance.PlaySound(shootAudio, transform.position);
 
-            
             // reloading
             if (bulletsInMagCurrent > 0)
             {
@@ -69,8 +71,8 @@ public class Gun : MonoBehaviour {
             
 
         }
-        
 
+        
     }
 
 

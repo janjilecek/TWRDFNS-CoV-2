@@ -12,6 +12,7 @@ public class GameUI : MonoBehaviour {
     public Text gunText;
     public Text hpText;
     public GameObject won;
+    bool gameover = false;
 
     Spawner spawner;
 	// Use this for initialization
@@ -43,17 +44,28 @@ public class GameUI : MonoBehaviour {
 
     void onGameOver()
     {
+        gameover = true;
         gameOverUI.SetActive(true);
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            print("anty key");
-            startNewGame();
-        }
+        
     }
 
     public void startNewGame()
     {
         //Application.LoadLevel("main_scene");
         SceneManager.LoadScene("main_scene");
+    }
+
+
+    private void Update()
+    {
+        if (gameover)
+        {
+            if (Input.anyKey)
+            {
+                print("anty key");
+                //startNewGame();
+            }
+        }
+        
     }
 }
