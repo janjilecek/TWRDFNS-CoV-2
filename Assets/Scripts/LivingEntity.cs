@@ -13,6 +13,7 @@ public class LivingEntity : MonoBehaviour,IDamagable {
     public GameObject ammoobj;
     public GameObject hpobj;
 
+    public AudioClip onDeathSound;
     public GameObject boomDeath;
 
     public virtual void Start()
@@ -47,6 +48,7 @@ public class LivingEntity : MonoBehaviour,IDamagable {
             OnDeath();
         }
 
+        AudioManager.instance.PlaySound(onDeathSound, transform.position);
         Instantiate(boomDeath, transform.position, Quaternion.identity);
         GameObject.Destroy(gameObject);
     }
