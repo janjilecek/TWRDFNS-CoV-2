@@ -9,8 +9,10 @@ public class Shell : MonoBehaviour {
     public float forceMax;
     float lifetime = 30;
     float fadetime = 2;
-	// Use this for initialization
-	void Start () {
+    bool playOnce = true;
+    public AudioClip shellSound;
+    // Use this for initialization
+    void Start () {
         float force = Random.Range(forceMin, forceMax);
         mRigidBody.AddForce(transform.right * force);
         mRigidBody.AddTorque(Random.insideUnitSphere * force);
@@ -21,6 +23,19 @@ public class Shell : MonoBehaviour {
 	void Update () {
 		
 	}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (playOnce)
+        {
+            AudioManager.instance.PlaySound(shellSound, transform.position);
+            playOnce = false;
+        }
+        
+        
+
+    }
+
+   
 
     IEnumerator Fade()
     {

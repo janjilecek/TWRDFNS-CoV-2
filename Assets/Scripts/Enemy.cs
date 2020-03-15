@@ -8,6 +8,7 @@ public class Enemy : LivingEntity {
 
     float attackDistanceThresh = 1.0f;
     float timebttattacks = 1;
+    public AudioClip hitAudio;
     float nextAttackTime;
     public enum State
     {
@@ -27,8 +28,10 @@ public class Enemy : LivingEntity {
         currentState = State.chasing;
         pathfinder = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("MainPlayer").transform;
+        Random.seed = System.Environment.TickCount;
         targetEntity = target.GetComponent<LivingEntity>();
-        hasNothingAmmoHp = Random.Range(0, 20); // random for hp ammo drops
+        hasNothingAmmoHp = Random.Range(0, 10); // random for hp ammo drops
+        print(hasNothingAmmoHp);
         // alternative PlaneTickets
 
         StartCoroutine(updatePath());
@@ -103,7 +106,11 @@ public class Enemy : LivingEntity {
     public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
         Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, -hitDirection));
+        print("taking a hit");
+        AudioManager.instance.PlaySound(hitAudio, transform.position);
+
         base.TakeHit(damage, hitPoint, hitDirection);
+
     }
 
     public override void Die()

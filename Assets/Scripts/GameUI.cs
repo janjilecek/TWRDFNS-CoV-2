@@ -14,6 +14,11 @@ public class GameUI : MonoBehaviour {
     public GameObject won;
     bool gameover = false;
 
+
+    public AudioClip dedsound;
+    public AudioClip wonsound;
+    public AudioClip wavesound;
+
     Spawner spawner;
 	// Use this for initialization
 	void Start () {
@@ -33,6 +38,9 @@ public class GameUI : MonoBehaviour {
         string[] numbers = { "I.", "II.", "III.", "IV.", "V.", "VI.", "VII.", "VIII.", "IX.", "X." };
         newWaveTitle.text = numbers[waveNumber - 1] + " WAVE INCOMING";
         StartCoroutine(AnimateNewWave());
+        //AudioManager.instance.PlayMusic(wavesound, 2);
+        //AudioManager.instance.PlaySound(wavesound, transform.position);
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().PlayOneShot(wavesound, 0.2f);
     }
 
     IEnumerator AnimateNewWave()
@@ -46,7 +54,8 @@ public class GameUI : MonoBehaviour {
     {
         gameover = true;
         gameOverUI.SetActive(true);
-        
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().PlayOneShot(wonsound, 0.4f);
+
     }
 
     public void startNewGame()

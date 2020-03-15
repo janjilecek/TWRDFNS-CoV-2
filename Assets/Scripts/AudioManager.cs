@@ -1,43 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
 
-    float masterVolumePercent = 1;
-    float sfxVOlumePercent = 1;
-    float musicVolumePrcnt = 1;
-
-    Transform audioListener;
-    Transform playerMine;
+    float masterVolumePercent = .2f;
+    float sfxVolumePercent = 1.5;
+    float musicVolumePercent = 1f;
 
     AudioSource[] musicSources;
     int activeMusicSourceIndex;
 
-
     public static AudioManager instance;
 
-    private void Awake()
+    Transform audioListener;
+    Transform playerT;
+    Transform cam;
+    void Awake()
     {
+
         instance = this;
+
         musicSources = new AudioSource[2];
         for (int i = 0; i < 2; i++)
         {
             GameObject newMusicSource = new GameObject("Music source " + (i + 1));
-            musicSources[i] =  newMusicSource.AddComponent<AudioSource>();
+            musicSources[i] = newMusicSource.AddComponent<AudioSource>();
             newMusicSource.transform.parent = transform;
         }
 
         audioListener = FindObjectOfType<AudioListener>().transform;
-        playerMine = FindObjectOfType<Player>().transform;
-
+        playerT = FindObjectOfType<Player>().transform;
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     void Update()
     {
-        if (playerMine != null)
+        if (playerT != null)
         {
-            audioListener.position = playerMine.position;
+            audioListener.position = playerT.position;
+            //audioListener.position = cam.position;
         }
     }
 
@@ -46,24 +48,27 @@ public class AudioManager : MonoBehaviour {
         activeMusicSourceIndex = 1 - activeMusicSourceIndex;
         musicSources[activeMusicSourceIndex].clip = clip;
         musicSources[activeMusicSourceIndex].Play();
-        StartCoroutine(ANimateMusicCorssfade(fadeDuration));
+
+        StartCoroutine(AnimateMusicCrossfade(fadeDuration));
     }
 
     public void PlaySound(AudioClip clip, Vector3 pos)
     {
-        AudioSource.PlayClipAtPoint(clip, pos, sfxVOlumePercent * masterVolumePercent);
-        // pass
+        if (clip != null)
+        {
+            AudioSource.PlayClipAtPoint(clip, pos, sfxVolumePercent * masterVolumePercent);
+        }
     }
 
-    IEnumerator ANimateMusicCorssfade(float duration)
+    IEnumerator AnimateMusicCrossfade(float duration)
     {
         float percent = 0;
+
         while (percent < 1)
         {
             percent += Time.deltaTime * 1 / duration;
-            musicSources[activeMusicSourceIndex].volume = Mathf.Lerp(0, musicVolumePrcnt * masterVolumePercent, percent);
-            musicSources[activeMusicSourceIndex].volume = Mathf.Lerp(musicVolumePrcnt * masterVolumePercent, 0 , percent);
-
+            musicSources[activeMusicSourceIndex].volume = Mathf.Lerp(0, musicVolumePercent * masterVolumePercent, percent);
+            musicSources[1 - activeMusicSourceIndex].volume = Mathf.Lerp(musicVolumePercent * masterVolumePercent, 0, percent);
             yield return null;
         }
     }

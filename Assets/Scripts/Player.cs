@@ -14,8 +14,12 @@ public class Player : LivingEntity {
     GunController gunController;
     public Text hp;
 
-	// Use this for initialization
-	public override void Start () {
+    public AudioClip ammoPickup;
+    public AudioClip hpPickup;
+    public AudioClip dieSound;
+
+    // Use this for initialization
+    public override void Start () {
         base.Start();
         controller = GetComponent<PlayerController>();
         viewCamera = Camera.main;
@@ -69,6 +73,8 @@ public class Player : LivingEntity {
             print("ammo");
             Destroy(collision.gameObject);
             gunController.equippedGun.magazines += 3;
+            gunController.equippedGun.hasAmmo = true;
+            AudioManager.instance.PlaySound(ammoPickup, transform.position);
         }
 
         if (collision.gameObject.tag == "hp") // pick up hp boost
@@ -76,9 +82,17 @@ public class Player : LivingEntity {
             if (health < 100)
             {
                 Destroy(collision.gameObject);
+                AudioManager.instance.PlaySound(hpPickup, transform.position);
                 health = 100;
             }
             
         }
+    }
+
+
+    public override void Die()
+    {
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().PlayOneShot(dieSound, 0.4f);
+        base.Die();
     }
 }

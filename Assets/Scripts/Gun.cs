@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour {
     public Transform shell;
     public Transform shellEjection;
     public MuzzleFlash muzzleflash;
+    public Camera myCam;
     float nextShotTime;
 
     [Header("Reloading")]
@@ -19,10 +20,11 @@ public class Gun : MonoBehaviour {
     public int bulletsInMagMaximum;
     public int magazines;
     bool isReloading = false;
-    bool hasAmmo = true;
+    public bool hasAmmo = true;
 
     public AudioClip shootAudio;
     public AudioClip reloadAudio;
+    public AudioClip dryFIre;
 
     public Canvas uiCanvas;
 
@@ -31,8 +33,9 @@ public class Gun : MonoBehaviour {
         bulletsInMagCurrent = 30;
         bulletsInMagMaximum = 30;
         magazines = 2;
+        myCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        print(myCam);
 
-        
     }
 
 
@@ -48,6 +51,11 @@ public class Gun : MonoBehaviour {
             muzzleflash.Activate();  // muzzle flash flash
             GameObject.FindGameObjectWithTag("MainPlayer").transform.localPosition -= Vector3.forward *.1f; // kickback player
             AudioManager.instance.PlaySound(shootAudio, transform.position);
+            //cameraShake.Shake(0.15f, 0.4f));
+
+            //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().ShakeCamera(10f, 10f);
+            //myCam.GetComponent<CameraShake>().ShakeCamera(0.1f, 0.01f);
+            myCam.GetComponent<CameraShake>().myShake();
 
             // reloading
             if (bulletsInMagCurrent > 0)
@@ -62,7 +70,7 @@ public class Gun : MonoBehaviour {
                     Reloading();
                     bulletsInMagCurrent = bulletsInMagMaximum;
                 } else {
-
+                    AudioManager.instance.PlaySound(dryFIre, transform.position);
                     hasAmmo = false; // doint forget to change it after AMMO pickup
                 }
 
@@ -78,6 +86,7 @@ public class Gun : MonoBehaviour {
 
     public void Reloading()
     {
+        AudioManager.instance.PlaySound(reloadAudio, transform.position);
         StartCoroutine(Reload());
     }
 
