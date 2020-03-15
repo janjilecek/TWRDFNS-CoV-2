@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(GunController))]
 [RequireComponent (typeof (PlayerController))]
@@ -8,8 +9,10 @@ public class Player : LivingEntity {
 
     Camera viewCamera;
     public float moveSpeed = 5;
+    public Transform crosshairs;
     PlayerController controller;
     GunController gunController;
+    public Text hp;
 
 	// Use this for initialization
 	public override void Start () {
@@ -29,10 +32,13 @@ public class Player : LivingEntity {
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         float rayDistance;
 
+        hp.text = health.ToString();
+
         if (groundPlane.Raycast(ray, out rayDistance))
         {
             Vector3 point = ray.GetPoint(rayDistance);
             controller.LookAt(point);
+            crosshairs.position = point;
         }
 
         // gun controls

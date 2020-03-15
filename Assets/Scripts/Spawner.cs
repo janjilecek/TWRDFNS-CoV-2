@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Spawner : MonoBehaviour {
     public Wave[] waves;
     public Enemy enemy;
+    public GameObject endGame;
 
     public float range = 300.0f;
     int enemiesRemainingToSpawn;
@@ -16,16 +17,19 @@ public class Spawner : MonoBehaviour {
     Wave currentWave;
     int currentWaveNumber;
 
+    public event System.Action<int> OnNewWave;
+
     [System.Serializable]
     public class Wave
     {
         public int enemyCount;
         public float timeBetweenSpawns;
         public float moveSpeed;
+        public bool isLast;
         
     }
 
-    void NextWave()
+    public void NextWave()
     {
         currentWaveNumber++;
         if (currentWaveNumber-1 < waves.Length)
@@ -33,7 +37,14 @@ public class Spawner : MonoBehaviour {
             currentWave = waves[currentWaveNumber - 1];
             enemiesRemainingToSpawn = currentWave.enemyCount;
             enemiesRemAlive = enemiesRemainingToSpawn;
+
+            if (OnNewWave != null)
+            {
+                OnNewWave(currentWaveNumber);
+            }
         }   
+
+
     }
 
     public void Start()
@@ -44,6 +55,13 @@ public class Spawner : MonoBehaviour {
 
     public void Update()
     {
+        if (enemiesRemAlive == 0 && currentWave.isLast)
+        {
+            
+                endGame.SetActive(true);
+            
+        }
+        
         if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
         {
             enemiesRemainingToSpawn--;

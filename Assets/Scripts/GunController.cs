@@ -6,14 +6,18 @@ public class GunController : MonoBehaviour {
     Gun equippedGun;
     public Transform weaponHold;
     public Gun startingGun;
-    
 
+    public Canvas uiCanvas;
     void Start()
     {
         if (startingGun != null)
         {
             EquipGun(startingGun);
+            
         }
+
+        //uiCanvas = FindObjectOfType<Canvas>();
+
     }
 
 	public void EquipGun(Gun gunToEquip)
@@ -31,6 +35,10 @@ public class GunController : MonoBehaviour {
         if (equippedGun != null)
         {
             equippedGun.Shoot();
+            
+            uiCanvas.GetComponent<GameUI>().gunText.text = equippedGun.magazines.ToString() + "/" + equippedGun.bulletsInMagCurrent.ToString(); 
+
+
         }
     }
 }
