@@ -48,4 +48,33 @@ public class Player : LivingEntity {
         }
 		
 	}
+
+
+    void CheckCollision(float moveDistance)
+    {
+        print("check col");
+    }
+
+    void OnHitObject(Collider c, Vector3 hitpoint)
+    {
+        print("hit obj");   
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("collision");
+
+        if (collision.gameObject.tag == "ammo")
+        {
+            print("ammo");
+            Destroy(collision.gameObject);
+            gunController.equippedGun.magazines += 3;
+        }
+
+        if (collision.gameObject.tag == "hp")
+        {
+            Destroy(collision.gameObject);
+            health = 100;
+        }
+    }
 }

@@ -69,12 +69,12 @@ public class Spawner : MonoBehaviour {
 
             Vector3 randomPoint = Vector2.zero + Random.insideUnitCircle * range;
       
-            print(randomPoint);
+            
             NavMeshHit hit;            
             if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
             {
                 result = hit.position;
-                print(result);
+                
             }
 
             Enemy spawned = Instantiate(enemy, RandomNavmeshLocation(300f), Quaternion.identity) as Enemy;

@@ -28,6 +28,7 @@ public class Enemy : LivingEntity {
         pathfinder = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("MainPlayer").transform;
         targetEntity = target.GetComponent<LivingEntity>();
+        hasNothingAmmoHp = Random.Range(0, 10);
         // alternative PlaneTickets
 
         StartCoroutine(updatePath());

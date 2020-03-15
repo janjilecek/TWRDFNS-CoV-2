@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GunController : MonoBehaviour {
-    Gun equippedGun;
+    public Gun equippedGun;
     public Transform weaponHold;
     public Gun startingGun;
 
@@ -18,6 +18,11 @@ public class GunController : MonoBehaviour {
 
         //uiCanvas = FindObjectOfType<Canvas>();
 
+    }
+
+    void Update()
+    {
+        uiCanvas.GetComponent<GameUI>().gunText.text = equippedGun.magazines.ToString() + "/" + equippedGun.bulletsInMagCurrent.ToString();
     }
 
 	public void EquipGun(Gun gunToEquip)
