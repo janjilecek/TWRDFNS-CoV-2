@@ -121,15 +121,15 @@ public class Player : LivingEntity {
 
         if (collision.gameObject.tag == "hp") // pick up hp boost
         {
-            if (health < 100)
+            
+            
+            Destroy(collision.gameObject);
+            AudioManager.instance.PlaySound(hpPickup, transform.position);
+            if (health < 81)
             {
-                Destroy(collision.gameObject);
-                AudioManager.instance.PlaySound(hpPickup, transform.position);
-                if (health < 81)
-                {
-                    health += 20; 
-                }
+                health += 20; 
             }
+            
             
         }
     }

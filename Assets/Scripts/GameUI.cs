@@ -69,10 +69,11 @@ public class GameUI : MonoBehaviour {
     {
         if (gameover)
         {
-            if (Input.anyKey)
+            if (Input.GetKeyDown(KeyCode.R))
+            
             {
                 print("anty key");
-                //startNewGame();
+                startNewGame();
             }
         }
         
