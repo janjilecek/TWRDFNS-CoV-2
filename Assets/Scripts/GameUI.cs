@@ -76,6 +76,11 @@ public class GameUI : MonoBehaviour {
                 startNewGame();
             }
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
     }
 }

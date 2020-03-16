@@ -77,6 +77,7 @@ public class Gun : MonoBehaviour {
                     Reloading();
                     bulletsInMagCurrent = bulletsInMagMaximum;
                 } else {
+                    print("has no ammo");
                     AudioManager.instance.PlaySound(dryFIre, transform.position);
                     hasAmmo = false; // doint forget to change it after AMMO pickup
                 }
@@ -85,6 +86,10 @@ public class Gun : MonoBehaviour {
             }
             
 
+        } else if (Time.time > nextShotTime && !isReloading && !hasAmmo)
+        {
+            AudioManager.instance.PlaySound(dryFIre, transform.position);
+            nextShotTime = Time.time + msBetweenShots / 1000;
         }
 
         

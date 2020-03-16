@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour {
     public Wave[] waves;
     public Enemy enemy;
     public GameObject endGame;
+    public GameObject timer;
+    public Text finalTime;
 
     public float range = 300.0f;
 
@@ -62,8 +65,12 @@ public class Spawner : MonoBehaviour {
         if (enemiesRemAlive == 0 && currentWave.isLast)
         {
             
-                endGame.SetActive(true);
-                AudioManager.instance.PlaySound(winSOund, transform.position);
+            endGame.SetActive(true);
+            AudioManager.instance.PlaySound(winSOund, transform.position);
+
+            timer.GetComponent<Stopwatch>().playing = false;
+            finalTime.text = "Your time: " + timer.GetComponent<Stopwatch>().currentTIme;
+                
 
         }
         
