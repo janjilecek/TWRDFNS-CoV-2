@@ -50,6 +50,8 @@ public class Player : LivingEntity {
         //animator.SetInteger("WeaponType_int", 6);
         //animator.SetBool("Shoot_b", false);
 
+        //animator.SetInteger("Animation_int", 5);
+
 
     }
 	
