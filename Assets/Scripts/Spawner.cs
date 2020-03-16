@@ -69,6 +69,7 @@ public class Spawner : MonoBehaviour {
             AudioManager.instance.PlaySound(winSOund, transform.position);
 
             timer.GetComponent<Stopwatch>().playing = false;
+            print("Your time: " + timer.GetComponent<Stopwatch>().currentTIme);
             finalTime.text = "Your time: " + timer.GetComponent<Stopwatch>().currentTIme;
                 
 

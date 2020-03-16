@@ -113,10 +113,19 @@ public class Player : LivingEntity {
         if (collision.gameObject.tag == "ammo") // pick up ammo boost
         {
             print("ammo");
+
             Destroy(collision.gameObject);
-            gunController.equippedGun.magazines += 3;
-            gunController.equippedGun.hasAmmo = true;
-            AudioManager.instance.PlaySound(ammoPickup, transform.position);
+            if (collision.gameObject.GetComponent<AmmoPickup>().pickedup == false)
+            {
+                collision.gameObject.GetComponent<AmmoPickup>().pickedup = true;
+                gunController.equippedGun.magazines ++;
+                gunController.equippedGun.hasAmmo = true;
+                AudioManager.instance.PlaySound(ammoPickup, transform.position);
+                
+            }
+            
+
+
         }
 
         if (collision.gameObject.tag == "hp") // pick up hp boost
